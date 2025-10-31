@@ -1,0 +1,19 @@
+Docker is great for microservices architecture, lift-and-shift applications from on-premises to AWS cloud.
+Amazon ECR provides both private repositories and public repositories called ECR public gallery (https://gallery.ecr.aws/).
+VMs: Infrastructure -> Host OS -> Hypervisor -> Guest OS(VM)
+Container -> Infrastructure -> Host OS -> Hypervisor -> Guest OS(VM) -> Docker Daemon -> Container
+
+# Amazon Elastic Container Service
+An ECS cluster is a logical grouping of compute resources (like EC2 instances or Fargate) that acts as a foundation for running 
+containerized applications. An ECS task is the smallest executable unit in a cluster, representing one or more containers running 
+together based on a task definition.
+
+EC2 launch type
+The user provisions and maintains the EC2 instances. The EC2 instances are created in advance. Each EC2 instance must run ECS agent 
+to register in the ECS cluster. After registering Amazon takes care of starting and stopping containers.
+
+Fargate launch type
+Serverless solution to deploy docker containers without the need to manage infrastructure. The compute resources to be allocated 
+are decided on what is provided in the ECS task. To scale, increasing the number of tasks is the standard method. Defining multiple
+containers within the same task isnt scaling, as resources are defined at the task level and all containers inside that one task must 
+share that single pool of resources. If 2 containers are defined, it doesnt mean fargate allocates 2x resources of what is defined in the task.

@@ -12,8 +12,24 @@ EC2 launch type
 The user provisions and maintains the EC2 instances. The EC2 instances are created in advance. Each EC2 instance must run ECS agent 
 to register in the ECS cluster. After registering Amazon takes care of starting and stopping containers.
 
+EC2 Instance profile
+It is used only for EC2 launch type only, where the ECS agents make use of it to call APIs of the ECS service.
+
 Fargate launch type
 Serverless solution to deploy docker containers without the need to manage infrastructure. The compute resources to be allocated 
 are decided on what is provided in the ECS task. To scale, increasing the number of tasks is the standard method. Defining multiple
 containers within the same task isnt scaling, as resources are defined at the task level and all containers inside that one task must 
 share that single pool of resources. If 2 containers are defined, it doesnt mean fargate allocates 2x resources of what is defined in the task.
+
+ECS Task role 
+This is valid for both EC2 and fargate launch type. Each task can have its specific role. Task role is defined in the task definition
+
+Load Balancer Integrations
+ALB supports and works for most of the use cases
+NLB is recommended for high throughput/high performance or to pair with AWS Private Link
+Classic LB does not support advance features like fargate
+
+Data volumnes
+Elastic File System can be mounted to ECS tasks and works for both EC2 and fargate launch type. This enables tasks running in any AZ share
+the same data in EFS. This provides persistent multi-AZ shared storage for containers
+Note - Amazon S3 cannot be mounted as a file system for ECS tasks
